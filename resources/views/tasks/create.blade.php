@@ -174,46 +174,20 @@
                 </div>
 
                 <h2>Tutti i Tasks</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Titolo</th>
-                                <th>Descrizione</th>
-                                <th>Azione</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($tasks->count() > 0)
-                            @foreach ($tasks as $task)
-                            <tr>
-                                <td>{{ $task->id}}</td>
-                                <td>{{ $task->titolo}}</td>
-                                <td>{{ $task->descrizione}}</td>
-                                <td>
-                                    <form method="post" action="{{ route('tasks.destroy', $task->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        @if (!$task->completed)
-                                        <a href="{{ route('tasks.edit', $task->id) }}" type="button" class="btn btn-primary btn-sm">Modifica</a>
-                                        <a href="{{ route('tasks.completed', $task->id) }}" type="button" class="btn btn-warning btn-sm">Completato</a>
-                                        @else
-                                        <a href="{{ route('tasks.uncompleted', $task->id) }}" type="button" class="btn btn-warning btn-sm">Non completato</a>
-                                        @endif
-                                        <button type="submi" class="btn btn-danger btn-sm">Elimina</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            @endforeach
-                            @else
-                            <tr>
-                                <td colspan="4">Nessun Task</td>
-                            </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
+                <form method="post" action="{{ route('tasks.store') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="titolo">Titolo</label>
+                        <input type="text" class="form-control" name="titolo" placeholder="Titolo">
+                    </div>
+                    <div class="form-group">
+                        <label for="descrizione">Descrizione</label>
+                        <textarea class="form-control" name="descrizione" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Crea</button>
+
+
+                </form>
             </main>
         </div>
     </div>
